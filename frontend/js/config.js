@@ -5,7 +5,7 @@ const config = {
   },
   production: {
     // We'll update this after creating the Render service
-    apiBaseUrl: "https://toolstack9921.pythonanywhere.com",
+    apiBaseUrl: "https://mini-ilovepdf-backend.onrender.com",
   }
 };
 
