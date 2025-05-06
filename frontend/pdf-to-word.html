@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to Word Converter - MiniILovePDF</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MiniILovePDF</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="tool-header">
+        <div class="container">
+            <h2>PDF to Word Converter</h2>
+            <p>Convert your PDF to editable Word documents</p>
+        </div>
+    </section>
+
+    <section class="converter">
+        <div class="container">
+            <div class="upload-area" id="dropZone">
+                <div class="upload-icon">📁</div>
+                <h3>Drop your PDF here or</h3>
+                <button class="btn primary" id="selectFileBtn">Select PDF</button>
+                <input type="file" id="fileInput" accept=".pdf" hidden>
+                <p class="hint">Maximum file size: 10MB</p>
+            </div>
+            
+            <div class="file-details" id="fileDetails" style="display: none;">
+                <div class="selected-file">
+                    <div class="file-info">
+                        <span class="file-name" id="fileName">document.pdf</span>
+                        <span class="file-size" id="fileSize">2.5 MB</span>
+                    </div>
+                    <button class="btn icon" id="removeFileBtn">❌</button>
+                </div>
+                <div class="conversion-options">
+                    <button class="btn primary" id="convertBtn">Convert to Word</button>
+                </div>
+            </div>
+            
+            <div class="conversion-progress" id="conversionProgress" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="statusText">Converting...</p>
+            </div>
+            
+            <div class="download-area" id="downloadArea" style="display: none;">
+                <h3>Your file is ready!</h3>
+                <button class="btn primary" id="downloadBtn">Download Word Document</button>
+                <button class="btn secondary" id="convertAnotherBtn">Convert Another File</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>MiniILovePDF - A simple PDF toolkit starter project</p>
+        </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pdf-to-word.js"></script>
+</body>
+</html>
