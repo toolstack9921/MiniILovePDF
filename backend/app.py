@@ -22,7 +22,7 @@ def after_request(response):
     # Allow requests from your Netlify domain
     allowed_origins = [
         'http://localhost:8080',  # Development
-        'https://your-netlify-app.netlify.app'  # Production (update this later)
+        'https://gleeful-kitsune-50052e.netlify.app'  # Production (update this later)
     ]
     
     origin = request.headers.get('Origin')
