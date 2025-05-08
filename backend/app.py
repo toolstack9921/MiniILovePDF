@@ -6,6 +6,7 @@ import time
 from tools.pdf_converter import convert_pdf_to_word
 
 app = Flask(__name__)
+
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['OUTPUT_FOLDER'] = 'outputs'
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB max file size
@@ -23,6 +24,7 @@ def after_request(response):
     allowed_origins = [
         'http://localhost:8080',  # Development
         'https://gleeful-kitsune-50052e.netlify.app'  # Production (update this later)
+
     ]
     
     origin = request.headers.get('Origin')
@@ -34,7 +36,7 @@ def after_request(response):
     return response
 
 
-@app.route('/convert/pdf-to-word', methods=['POST'])
+@app.route('/api/convert/pdf-to-word', methods=['POST'])
 def pdf_to_word():
     # Check if file was uploaded
     if 'file' not in request.files:
@@ -80,7 +82,7 @@ def pdf_to_word():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/download/<filename>', methods=['GET'])
+@app.route('/api/download/<filename>', methods=['GET'])
 def download_file(filename):
     filepath = os.path.join(app.config['OUTPUT_FOLDER'], filename)
     

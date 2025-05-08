@@ -155,21 +155,19 @@ function uploadFileToServer(file) {
     fileDetails.style.display = 'none';
     conversionProgress.style.display = 'block';
     statusText.textContent = 'Uploading file...';
-    
+
     const formData = new FormData();
     formData.append('file', file);
-    
-    // Define the backend URL - adjust based on your environment
+
     const backendUrl = apiConfig.apiBaseUrl + '/convert/pdf-to-word';
-    
-    // Start tracking progress
+
+    // Simulated progress
     let progress = 0;
     const interval = setInterval(() => {
-        // Simulate upload progress (in a real app, you might get this from fetch)
         if (progress < 90) {
             progress += 10;
             progressFill.style.width = `${progress}%`;
-            
+
             if (progress < 40) {
                 statusText.textContent = 'Uploading file...';
             } else if (progress < 80) {
@@ -177,48 +175,49 @@ function uploadFileToServer(file) {
             }
         }
     }, 300);
-    
+
     fetch(backendUrl, {
         method: 'POST',
-        body: formData,
-        // No need to set Content-Type header as it will be set automatically with boundary
+        body: formData
     })
     .then(response => {
         if (!response.ok) {
             throw new Error(`Server responded with status: ${response.status}`);
         }
-        return response.json();
+        return response.blob();
     })
-    .then(data => {
-        // Complete progress bar
+    .then(blob => {
         clearInterval(interval);
         progressFill.style.width = '100%';
-        statusText.textContent = 'Conversion complete!';
-        
-        // Store the download URL from the server
-        downloadUrl = data.downloadUrl;
-        
-        // Show download UI after a brief delay
+        statusText.textContent = 'Conversion complete! Preparing download...';
+
+        // Create download link and simulate click
+        const downloadLink = document.createElement("a");
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = file.name.replace('.pdf', '.docx');
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+        // Show download complete UI
         setTimeout(() => {
             conversionProgress.style.display = 'none';
             downloadArea.style.display = 'block';
         }, 500);
     })
     .catch(error => {
-        // Handle errors
         clearInterval(interval);
         console.error('Error:', error);
         statusText.textContent = 'Error: ' + error.message;
         progressFill.style.width = '0%';
-        
-        // Show error message
+
         alert('An error occurred during conversion. Please try again.');
-        
-        // Reset UI after delay
+
         setTimeout(() => {
             resetToUploadState();
         }, 2000);
     });
 }
+
 
 });
